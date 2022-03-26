@@ -1,0 +1,46 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+ }
+  
+ html, body {
+  height: 100%;
+ }
+  
+ body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--SHADE_OF_GREY_1);
+  color: var(--TXT_COLOR);
+  font-size: 16px;
+ }
+  
+ :root {
+  /* Color Constant */
+  --SHADE_OF_BLUE_1: #72b7e5;
+  --SHADE_OF_BLUE_2: #637bbd;
+  --SHADE_OF_BLUE_3: #23116c;
+   --SHADE_OF_PURPLE_1: #054aa8;
+  --SHADE_OF_PURPLE_2: #031235;
+  --SHADE_OF_PURPLE_3: #e7eaf2;
+  --SHADE_OF_PURPLE_4: #412391;
+   --SHADE_OF_GREY_1: #f5f5f5;
+  --SHADE_OF_GREY_2: #757576;
+  --SHADE_OF_GREY_3: #464646;
+  --SHADE_OF_GREY_4: #586477;
+  --SHADE_OF_GREY_5: #414141;
+  --SHADE_OF_GREY_6: #cccccc;
+  --SHADE_OF_GREY_7: #f9f9f9;
+  --SHADE_OF_GREY_8: #bcbcbc;
+  --GRADIENT_COLOR_BLUE: #4d80c6;
+  --GRADIENT_COLOR_BLACK: #001748;
+   --ERROR_BACKGROUND: #f5d8d8;
+  --SUCCESS_BACKGROUND: #dfecd1;
+   --RED_STATUS_COLOR_SHADE: #ea5b71;
+  --ORANGE_STATUS_COLOR_SHADE: #f8b64c;
+  --GREEN_STATUS_COLOR_SHADE: #79c131;
+   --DEFAULT_BLACK: #000000;
+  --DEFAULT_WHITE: #ffffff;
+   --TXT_COLOR: #031235;
+  --PLACEHOLDER_COLOR: #a4adb3;
+ }
+ 
