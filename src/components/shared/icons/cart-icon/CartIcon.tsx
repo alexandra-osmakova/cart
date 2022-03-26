@@ -13,8 +13,7 @@ const CartIcon: React.FC<IProps> = (props) => {
         <svg
             width={`${width}rem`}
             height={`${height}rem`}
-            viewBox="0 0 512 512"
-            xmlSpace="preserve">
+            viewBox="0 0 512 512">
             <g>
                 <path
                     fill={color}

@@ -1,0 +1,41 @@
+.label {
+    color: var(--PLACEHOLDER_COLOR);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 80px auto;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    display: inline-flex;
+    align-items: flex-start;
+    width: 100%;
+    border-left: 0.25rem solid transparent;
+    padding: 0 2rem;
+    transition: border-left 0.2s ease;
+}
+
+.card:hover {
+    border-left: 0.25rem solid var(--GREEN_STATUS_COLOR_SHADE);
+}
+
+.card:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.cardContent {
+   flex: 1;
+}

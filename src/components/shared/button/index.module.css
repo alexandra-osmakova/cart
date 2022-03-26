@@ -1,0 +1,40 @@
+.button {
+    cursor: pointer;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0.25rem;
+    outline: none;
+    border: none;
+}
+
+.button.buttonWithBorder:hover,
+.button.buttonWithBorder:focus,
+.button.buttonWithBorder:active {
+    box-shadow: 0px 4px 8px rgba(15, 38, 68, 0.16);
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: unset;
+    box-shadow: none;
+}
+
+.button:not(:last-child) {
+    margin-right: 0.5rem;
+}
+
+.buttonWithIcon {
+    background-color: var(--DEFAULT_WHITE);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+}
+
+.buttonWithBorder {
+    border: 1px solid var(--SHADE_OF_GREY_8);
+}
+
+.label {
+    margin-left: 0.25rem;
+}

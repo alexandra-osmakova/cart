@@ -92,20 +92,12 @@ h6 {
     height: calc(100vh - 3.25rem);
 }
 
-.page-title {
-    position: relative;
-    margin-bottom: 1rem;
-    width: fit-content;
-}
-
-.page-title:after {
-    content: "";
-    width: 4rem;
-    height: 0.125rem;
-    background-color: var(--SHADE_OF_BLUE_2);
-    position: absolute;
-    bottom: -0.75rem;
-    left: 0;
+.page-header {
+    padding: 0 2rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
 }
 
 .page-content {

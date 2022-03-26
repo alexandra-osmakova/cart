@@ -1,5 +1,5 @@
 import React from "react";
-import { WHITE } from "../../../const/color-const";
+import { WHITE } from "../../../const";
 import CartIcon from "../icons/cart-icon";
 import styles from "./index.module.css";
 
