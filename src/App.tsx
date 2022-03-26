@@ -8,7 +8,9 @@ function App() {
     return (
         <div className="App">
             <Header />
-            <Cart />
+            <div className="page-wrap">
+                <Cart />
+            </div>
         </div>
     );
 }
