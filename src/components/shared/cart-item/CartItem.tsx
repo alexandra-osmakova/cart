@@ -12,6 +12,19 @@ import styles from "./index.module.css";
 interface IProps {}
 
 const CartItem: React.FC<IProps> = (props) => {
+
+    const productIncrease = () => {
+
+    };
+
+    const productDecrease = () => {
+
+    };
+
+    const productRemove = () => {
+
+    };
+
     return (
         <div className={styles.card}>
             <div className={styles.cardContent}>
@@ -35,17 +48,20 @@ const CartItem: React.FC<IProps> = (props) => {
                 <div className={styles.controls}>
                     <Button
                         hasBorder={true}
+                        onClick={productIncrease}
                         type={ButtonType.DEFAULT}
                         icon={<PlusIcon color={GREEN} width={1} height={1} />}
                     />
                     <Button
                         type={ButtonType.DEFAULT}
+                        onClick={productDecrease}
                         hasBorder={true}
                         icon={<MinusIcon color={GREEN} width={1} height={1} />}
                     />
                 </div>
             </div>
             <Button
+                onClick={productRemove}
                 type={ButtonType.DEFAULT}
                 icon={<BinIcon color={DEFAULT} width={1.25} height={1.25} />}
             />

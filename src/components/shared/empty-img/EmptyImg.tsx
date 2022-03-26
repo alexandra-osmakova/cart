@@ -6,11 +6,9 @@ import styles from "./index.module.css";
 
 const EmptyImg: React.FC = () => {
     return (
-        <>
-            <div className={styles.icon}>
-                <CartIcon color={GRAY} width={1.5} height={1.5} />
-            </div>
-        </>
+        <div className={styles.icon}>
+            <CartIcon color={GRAY} width={1.5} height={1.5} />
+        </div>
     );
 };
 

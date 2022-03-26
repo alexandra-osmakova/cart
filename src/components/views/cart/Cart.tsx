@@ -11,6 +11,14 @@ import styles from "./index.module.css";
 interface IProps {}
 
 const Cart: React.FC<IProps> = (props) => {
+
+    const addNewProduct = () => {
+    };
+
+    const checkout = () => {
+
+    };
+
     return (
         <main className="page-content">
             <div className={styles.card}>
@@ -21,6 +29,7 @@ const Cart: React.FC<IProps> = (props) => {
                             type={ButtonType.DEFAULT}
                             hasBorder={true}
                             label={"Add new"}
+                            onClick={addNewProduct}
                             icon={
                                 <PlusIcon color={GREEN} width={1} height={1} />
                             }
@@ -29,6 +38,7 @@ const Cart: React.FC<IProps> = (props) => {
                             type={ButtonType.DEFAULT}
                             hasBorder={true}
                             label={"Checkout"}
+                            onClick={checkout}
                             icon={
                                 <CartIcon color={GREEN} width={1} height={1} />
                             }

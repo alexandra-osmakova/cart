@@ -1,0 +1,28 @@
+.customInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 0.25rem;
+}
+
+.requiredMark {
+    color: var(--RED_STATUS_COLOR_SHADE);
+}
+
+.input {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--SHADE_OF_GREY_8);
+    outline: none;
+}
+
+.input:focus,
+.input:active {
+    border: 1px solid var(--GREEN_STATUS_COLOR_SHADE);
+}
+
+.input:focus:invalid {
+    border-color: var(--RED_STATUS_COLOR_SHADE);
+}
