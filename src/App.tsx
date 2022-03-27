@@ -9,7 +9,6 @@ import { ButtonType } from "./interface";
 
 function App() {
     const addNewProduct = () => {};
-    const cancel = () => {};
 
     return (
         <div className="App">
@@ -23,7 +22,6 @@ function App() {
                 successBtnLabel={"Add new"}
                 successBtnType={ButtonType.SUBMIT}
                 successOnClick={addNewProduct}
-                cancelOnClick={cancel}
                 cancelBtnLabel={"Cancel"}
             />
         </div>

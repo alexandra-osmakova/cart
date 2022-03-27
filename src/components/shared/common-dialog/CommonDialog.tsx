@@ -1,6 +1,8 @@
 import React from "react";
 import { DEFAULT } from "../../../const";
 import { ButtonType } from "../../../interface";
+import { commonDialogToggleAction } from "../../../redux/actions/commonDialogAction";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Button from "../button";
 import CrossIcon from "../icons/cross-icon";
 import Overlay from "../overlay";
@@ -14,7 +16,6 @@ interface IProps {
     cancelBtnLabel?: string;
     successBtnType?: ButtonType;
     successOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    cancelOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CommonDialog: React.FC<IProps> = (props) => {
@@ -25,56 +26,53 @@ const CommonDialog: React.FC<IProps> = (props) => {
         cancelBtnLabel,
         successBtnType,
         successOnClick,
-        cancelOnClick,
     } = props;
 
-    const closeDialog = () => {};
+    const dispatch = useAppDispatch();
+    const isOpen = useAppSelector(state => state.commonDialog.open);
 
     return (
-        // <>
-        //     {content ? (
-        //         <div className={styles.dialog}>
-        //             <header className={styles.header}>
-        //                 <h3>{title}</h3>
-        //             </header>
-        //             {content}
-        //         </div>
-        //     ) : null}
-        // </>
-
-        <Overlay>
-            <div className={styles.dialog}>
-                <header className={styles.header}>
-                    <h3>{title}</h3>
-                    <Button
-                        type={ButtonType.DEFAULT}
-                        onClick={cancelOnClick}
-                        icon={
-                            <CrossIcon color={DEFAULT} width={1} height={1} />
-                        }
-                    />
-                </header>
-                <div className={styles.content}>{content}</div>
-                <div className={styles.controls}>
-                    {cancelBtnLabel && (
-                        <Button
-                            type={ButtonType.DEFAULT}
-                            hasBorder={true}
-                            label={cancelBtnLabel}
-                            onClick={cancelOnClick}
-                        />
-                    )}
-                    {successBtnLabel && (
-                        <Button
-                            type={successBtnType}
-                            hasBorder={true}
-                            label={successBtnLabel}
-                            onClick={successOnClick}
-                        />
-                    )}
-                </div>
-            </div>
-        </Overlay>
+        <>
+            {isOpen ? (
+                <Overlay>
+                    <div className={styles.dialog}>
+                        <header className={styles.header}>
+                            <h3>{title}</h3>
+                            <Button
+                                type={ButtonType.DEFAULT}
+                                onClick={() => dispatch(commonDialogToggleAction())}
+                                icon={
+                                    <CrossIcon
+                                        color={DEFAULT}
+                                        width={1}
+                                        height={1}
+                                    />
+                                }
+                            />
+                        </header>
+                        <div className={styles.content}>{content}</div>
+                        <div className={styles.controls}>
+                            {cancelBtnLabel && (
+                                <Button
+                                    type={ButtonType.DEFAULT}
+                                    hasBorder={true}
+                                    label={cancelBtnLabel}
+                                    onClick={() => dispatch(commonDialogToggleAction())}
+                                />
+                            )}
+                            {successBtnLabel && (
+                                <Button
+                                    type={successBtnType}
+                                    hasBorder={true}
+                                    label={successBtnLabel}
+                                    onClick={successOnClick}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </Overlay>
+            ) : null}
+        </>
     );
 };
 

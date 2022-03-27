@@ -1,6 +1,8 @@
 import React from "react";
 import { GREEN } from "../../../const";
 import { ButtonType } from "../../../interface";
+import { commonDialogToggleAction } from "../../../redux/actions/commonDialogAction";
+import { useAppDispatch } from "../../../redux/hooks";
 import Button from "../../shared/button";
 import CartItem from "../../shared/cart-item";
 import CartIcon from "../../shared/icons/cart-icon";
@@ -8,13 +10,9 @@ import PlusIcon from "../../shared/icons/plus-icon";
 
 import styles from "./index.module.css";
 
-interface IProps {}
 
-const Cart: React.FC<IProps> = (props) => {
-
-    const addNewProduct = () => {
-    };
-
+const Cart: React.FC = () => {
+    const dispatch = useAppDispatch();
     const checkout = () => {
 
     };
@@ -29,7 +27,7 @@ const Cart: React.FC<IProps> = (props) => {
                             type={ButtonType.DEFAULT}
                             hasBorder={true}
                             label={"Add new"}
-                            onClick={addNewProduct}
+                            onClick={() => dispatch(commonDialogToggleAction())}
                             icon={
                                 <PlusIcon color={GREEN} width={1} height={1} />
                             }
