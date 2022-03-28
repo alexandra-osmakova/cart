@@ -1,16 +1,29 @@
-// import { BASIC_TYPE } from "../action-types";
+import { ICartAddDialog } from "../../interface";
+import {
+    COMMON_DIALOG_TOGGLE,
+    COMMON_DIALOG_VALIDATION_TOGGLE,
+} from "../action-types";
+import {
+    ICommonDialogToggleAction,
+    ICommonDialogValidationToggleAction,
+} from "../interface";
 
-import { COMMON_DIALOG_TOGGLE } from "../action-types";
-
-// const basicAction = (value: number) => ({
-//     type: BASIC_TYPE,
-//     payload: {
-//         basicPayload: value,
-//     },
-// });
-
-const commonDialogToggleAction = () => ({
+const commonDialogToggleAction = (
+    value?: ICartAddDialog
+): ICommonDialogToggleAction => ({
     type: COMMON_DIALOG_TOGGLE,
+    payload: {
+        dialogSettings: value,
+    },
 });
 
-export { commonDialogToggleAction };
+const commonDialogValidationToggleAction = (
+    value: boolean
+): ICommonDialogValidationToggleAction => ({
+    type: COMMON_DIALOG_VALIDATION_TOGGLE,
+    payload: {
+        valid: value,
+    },
+});
+
+export { commonDialogToggleAction, commonDialogValidationToggleAction };

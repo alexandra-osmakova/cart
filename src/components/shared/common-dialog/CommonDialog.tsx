@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { DEFAULT } from "../../../const";
 import { ButtonType } from "../../../interface";
 import { commonDialogToggleAction } from "../../../redux/actions/commonDialogAction";
@@ -9,38 +9,32 @@ import Overlay from "../overlay";
 
 import styles from "./index.module.css";
 
-interface IProps {
-    title: string;
-    content?: JSX.Element;
-    successBtnLabel: string;
-    cancelBtnLabel?: string;
-    successBtnType?: ButtonType;
-    successOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
-const CommonDialog: React.FC<IProps> = (props) => {
+const CommonDialog: React.FC = () => {
+    const dispatch = useAppDispatch();
     const {
+        open,
         title,
         content,
         successBtnLabel,
         cancelBtnLabel,
         successBtnType,
         successOnClick,
-    } = props;
+        isValid,
+        formId
+    } = useAppSelector((state) => state.commonDialog);
 
-    const dispatch = useAppDispatch();
-    const isOpen = useAppSelector(state => state.commonDialog.open);
+    const onDialogToggle = useCallback(() => dispatch(commonDialogToggleAction()), [dispatch]);
 
     return (
         <>
-            {isOpen ? (
+            {open ? (
                 <Overlay>
                     <div className={styles.dialog}>
                         <header className={styles.header}>
                             <h3>{title}</h3>
                             <Button
                                 type={ButtonType.DEFAULT}
-                                onClick={() => dispatch(commonDialogToggleAction())}
+                                onClick={onDialogToggle}
                                 icon={
                                     <CrossIcon
                                         color={DEFAULT}
@@ -57,14 +51,16 @@ const CommonDialog: React.FC<IProps> = (props) => {
                                     type={ButtonType.DEFAULT}
                                     hasBorder={true}
                                     label={cancelBtnLabel}
-                                    onClick={() => dispatch(commonDialogToggleAction())}
+                                    onClick={onDialogToggle}
                                 />
                             )}
                             {successBtnLabel && (
                                 <Button
+                                    form={formId}
                                     type={successBtnType}
                                     hasBorder={true}
                                     label={successBtnLabel}
+                                    disabled={!isValid}
                                     onClick={successOnClick}
                                 />
                             )}

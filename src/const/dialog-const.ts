@@ -1,0 +1,1 @@
+export const ADD_CART_PRODUCT_DIALOG = 'new-cart-product-dialog';
