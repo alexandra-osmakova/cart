@@ -31,7 +31,7 @@
 
 .buttonWithBorder {
     border-radius: 0.25rem;
-    border: 1px solid var(--SHADE_OF_GREY_8);
+    border: 1px solid var(--BORDER_COLOR);
 }
 
 .label:not(:first-child) {

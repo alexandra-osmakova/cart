@@ -1,16 +1,6 @@
-import { ICartAddDialog } from "../../interface";
-import {
-    COMMON_DIALOG_TOGGLE,
-    COMMON_DIALOG_VALIDATION_TOGGLE,
-} from "../action-types";
-import {
-    ICommonDialogToggleAction,
-    ICommonDialogValidationToggleAction,
-} from "../interface";
 
-type CommonDialogActions =
-    | ICommonDialogToggleAction
-    | ICommonDialogValidationToggleAction;
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ButtonType, ICartAddDialog } from "../../interface";
 interface ICommonDialogState extends ICartAddDialog {
     open: boolean;
     isValid: boolean;
@@ -20,7 +10,7 @@ const STATIC_INITIAL_STATE: ICartAddDialog = {
     title: "",
     content: undefined,
     successBtnLabel: "",
-    successBtnType: undefined,
+    successBtnType: ButtonType.DEFAULT,
     successOnClick: undefined,
     cancelBtnLabel: "",
     formId: undefined,
@@ -32,34 +22,37 @@ const initialState: ICommonDialogState = {
     ...STATIC_INITIAL_STATE,
 };
 
-const commonDialogReducer = (
-    state = initialState,
-    action: CommonDialogActions
-) => {
-    switch (action.type) {
-        case COMMON_DIALOG_TOGGLE: {
+const commonDialogSlice = createSlice({
+    name: "commonDialogReducer",
+    initialState,
+    reducers: {
+        commonDialogToggleAction(
+            state: ICommonDialogState,
+            action: PayloadAction<{ dialogSettings: ICartAddDialog | null }>
+        ) {
             const { dialogSettings } = action.payload;
             const { open, isValid } = state;
             const currentSettings = dialogSettings || STATIC_INITIAL_STATE;
-
-            return {
-                ...state,
-                open: !open,
-                isValid: dialogSettings ? isValid : false,
-                ...currentSettings,
-            };
-        }
-        case COMMON_DIALOG_VALIDATION_TOGGLE: {
+            state.open = !open;
+            state.isValid = dialogSettings?.isValid || isValid;
+            state.title = currentSettings.title;
+            state.content = currentSettings.content;
+            state.successBtnLabel = currentSettings.successBtnLabel;
+            state.successBtnType = currentSettings.successBtnType;
+            state.successOnClick = currentSettings.successOnClick;
+            state.cancelBtnLabel = currentSettings.cancelBtnLabel;
+            state.formId = currentSettings.formId;
+        },
+        commonDialogValidationToggleAction(
+            state,
+            action: PayloadAction<{ valid: boolean }>
+        ) {
             const { valid } = action.payload;
+            state.isValid = valid;
+        },
+    },
+});
 
-            return {
-                ...state,
-                isValid: valid,
-            };
-        }
-        default:
-            return state;
-    }
-};
-
-export default commonDialogReducer;
+export const { commonDialogToggleAction, commonDialogValidationToggleAction } =
+    commonDialogSlice.actions;
+export default commonDialogSlice.reducer;

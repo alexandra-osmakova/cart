@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { ADD_CART_PRODUCT_DIALOG } from "../../../const";
-import { cartProductFormSubmitAction } from "../../../redux/actions/cartActions";
-import { commonDialogValidationToggleAction } from "../../../redux/actions/commonDialogAction";
+import { cartProductFormSubmitAction } from "../../../redux/actions";
 import { useAppDispatch } from "../../../redux/hooks";
+import { commonDialogValidationToggleAction } from "../../../redux/reducers";
 import Input from "../input";
 
 import styles from "./index.module.css";
@@ -32,7 +32,7 @@ const NewProductDialog: React.FC = () => {
     };
 
     useEffect(() => {
-        dispatch(commonDialogValidationToggleAction(isFormValid));
+        dispatch(commonDialogValidationToggleAction({ valid: isFormValid }));
     }, [isFormValid, dispatch]);
 
     return (
@@ -47,6 +47,7 @@ const NewProductDialog: React.FC = () => {
                 label={"Product name"}
                 required={true}
                 type={"text"}
+                minLength={3}
             />
             <Input
                 value={productPrice}
@@ -54,6 +55,7 @@ const NewProductDialog: React.FC = () => {
                 label={"Product price"}
                 required={true}
                 type={"number"}
+                min={0}
             />
             <Input
                 value={productQuantity}
@@ -62,10 +64,10 @@ const NewProductDialog: React.FC = () => {
                 label={"Product quantity"}
                 required={true}
                 type={"number"}
+                min={0}
             />
         </form>
     );
 };
 
 export default NewProductDialog;
-

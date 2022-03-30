@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { DEFAULT } from "../../../const";
 import { ButtonType } from "../../../interface";
-import { commonDialogToggleAction } from "../../../redux/actions/commonDialogAction";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { commonDialogToggleAction } from "../../../redux/reducers";
 import Button from "../button";
 import CrossIcon from "../icons/cross-icon";
 import Overlay from "../overlay";
@@ -20,10 +20,13 @@ const CommonDialog: React.FC = () => {
         successBtnType,
         successOnClick,
         isValid,
-        formId
+        formId,
     } = useAppSelector((state) => state.commonDialog);
 
-    const onDialogToggle = useCallback(() => dispatch(commonDialogToggleAction()), [dispatch]);
+    const onDialogToggle = useCallback(
+        () => dispatch(commonDialogToggleAction({ dialogSettings: null })),
+        [dispatch]
+    );
 
     return (
         <>

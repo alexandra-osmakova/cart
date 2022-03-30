@@ -33,7 +33,14 @@ const useProductDialog = (): IUseProductDialog => {
     );
 
     useEffect(() => {
-        setIsFormValid(Boolean(productName && productPrice && productQuantity));
+        setIsFormValid(
+            Boolean(
+                productName &&
+                    productName.length >= 3 &&
+                    productPrice &&
+                    productQuantity
+            )
+        );
     }, [productName, productPrice, productQuantity]);
 
     return {

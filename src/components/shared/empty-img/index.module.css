@@ -6,5 +6,5 @@
     justify-content: center;
     margin-right: 1rem;
     border-radius: 50%;
-    border: 0.25rem solid var(--SHADE_OF_GREY_8);
+    border: 0.25rem solid var(--BORDER_COLOR);
 }

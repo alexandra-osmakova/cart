@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect } from "react";
 import { ADD_CART_PRODUCT_DIALOG, GREEN } from "../../../const";
 import { ButtonType, ICartData } from "../../../interface";
-import { cartProductLoadDataAction } from "../../../redux/actions/cartActions";
-import { commonDialogToggleAction } from "../../../redux/actions/commonDialogAction";
+import { cartProductLoadDataAction } from "../../../redux/actions";
+
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { commonDialogToggleAction } from "../../../redux/reducers";
 import Button from "../../shared/button";
 import CartItem from "../../shared/cart-item";
+import CheckoutDialog from "../../shared/checkout-dialog";
 import EmptyState from "../../shared/empty-state";
 import CartIcon from "../../shared/icons/cart-icon";
 import PlusIcon from "../../shared/icons/plus-icon";
@@ -22,22 +24,45 @@ const Cart: React.FC = () => {
         (state) => state.cart.cartData
     );
 
+    const onCheckoutRedirect = useCallback(
+        () => dispatch(commonDialogToggleAction({ dialogSettings: null })),
+        [dispatch]
+    );
+
     const onDialogToggle = useCallback(
         () =>
             dispatch(
                 commonDialogToggleAction({
-                    title: "Add new product",
-                    successBtnLabel: "Add new",
-                    successBtnType: ButtonType.SUBMIT,
-                    cancelBtnLabel: "Cancel",
-                    formId: ADD_CART_PRODUCT_DIALOG,
-                    content: <NewProductDialog />,
+                    dialogSettings: {
+                        title: "Add new product",
+                        successBtnLabel: "Add new",
+                        successBtnType: ButtonType.SUBMIT,
+                        cancelBtnLabel: "Cancel",
+                        formId: ADD_CART_PRODUCT_DIALOG,
+                        content: <NewProductDialog />,
+                    },
                 })
             ),
         [dispatch]
     );
 
-    const checkout = () => {};
+    const onCheckout = useCallback(
+        () =>
+            dispatch(
+                commonDialogToggleAction({
+                    dialogSettings: {
+                        title: "Checkout",
+                        successBtnLabel: "Ok",
+                        successBtnType: ButtonType.DEFAULT,
+                        cancelBtnLabel: "Cancel",
+                        content: <CheckoutDialog />,
+                        successOnClick: onCheckoutRedirect,
+                        isValid: true,
+                    },
+                })
+            ),
+        [dispatch, onCheckoutRedirect]
+    );
 
     useEffect(() => {
         if (!isLoaded) {
@@ -66,7 +91,7 @@ const Cart: React.FC = () => {
                             type={ButtonType.DEFAULT}
                             hasBorder={true}
                             label={"Checkout"}
-                            onClick={checkout}
+                            onClick={onCheckout}
                             icon={
                                 <CartIcon color={GREEN} width={1} height={1} />
                             }

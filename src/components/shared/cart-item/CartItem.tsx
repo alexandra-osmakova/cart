@@ -1,7 +1,10 @@
 import React, { useCallback } from "react";
 import { DEFAULT, GREEN } from "../../../const";
 import { ButtonType, ICartData } from "../../../interface";
-import { cartProductDeleteItemAction, cartProductQuantityUpdateAction } from "../../../redux/actions/cartActions";
+import {
+    cartProductDeleteItemAction,
+    cartProductQuantityUpdateAction,
+} from "../../../redux/actions";
 import { useAppDispatch } from "../../../redux/hooks";
 import Button from "../button";
 import EmptyImg from "../empty-img";
@@ -15,9 +18,34 @@ const CartItem: React.FC<ICartData> = (props) => {
     const { id, name, price, quantity } = props;
     const dispatch = useAppDispatch();
 
-    const onProductIncrease = useCallback(() => dispatch(cartProductQuantityUpdateAction(true, {id, name, price, quantity})), [dispatch, id, name, price, quantity]);
-    const onProductDecrease = useCallback(() => dispatch(cartProductQuantityUpdateAction(false, {id, name, price, quantity})), [dispatch, id, name, price, quantity]);
-    const onProductDelete = useCallback(() => dispatch(cartProductDeleteItemAction(id)), [dispatch, id]);
+    const onProductIncrease = useCallback(
+        () =>
+            dispatch(
+                cartProductQuantityUpdateAction(true, {
+                    id,
+                    name,
+                    price,
+                    quantity,
+                })
+            ),
+        [dispatch, id, name, price, quantity]
+    );
+    const onProductDecrease = useCallback(
+        () =>
+            dispatch(
+                cartProductQuantityUpdateAction(false, {
+                    id,
+                    name,
+                    price,
+                    quantity,
+                })
+            ),
+        [dispatch, id, name, price, quantity]
+    );
+    const onProductDelete = useCallback(
+        () => dispatch(cartProductDeleteItemAction(id)),
+        [dispatch, id]
+    );
 
     return (
         <div className={styles.card}>

@@ -29,7 +29,7 @@
 }
 
 .card:hover {
-    border-left: 0.25rem solid var(--GREEN_STATUS_COLOR_SHADE);
+    border-left: 0.25rem solid var(--SHADE_OF_GREEN);
 }
 
 .card:not(:last-child) {

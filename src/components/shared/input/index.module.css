@@ -8,21 +8,21 @@
 }
 
 .requiredMark {
-    color: var(--RED_STATUS_COLOR_SHADE);
+    color: var(--ERROR_COLOR);
 }
 
 .input {
     padding: 0.5rem;
     border-radius: 0.25rem;
-    border: 1px solid var(--SHADE_OF_GREY_8);
+    border: 1px solid var(--BORDER_COLOR);
     outline: none;
 }
 
 .input:focus,
 .input:active {
-    border: 1px solid var(--GREEN_STATUS_COLOR_SHADE);
+    border: 1px solid var(--SHADE_OF_GREEN);
 }
 
 .input:focus:invalid {
-    border-color: var(--RED_STATUS_COLOR_SHADE);
+    border-color: var(--ERROR_COLOR);
 }

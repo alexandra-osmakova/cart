@@ -1,6 +1,6 @@
 .header {
     padding: 1rem 2rem;
-    background-color: var(--SHADE_OF_BLUE_2);
+    background: linear-gradient(20deg, rgba(255, 255, 0, 1) 0%, rgba(38, 61, 15, 1) 0%, rgba(115, 184, 46, 1) 100%);;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -7,7 +7,18 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FC<IProps> = (props) => {
-    const { label, disabled, required, type, pattern, value, placeholder, onChange } = props;
+    const {
+        label,
+        disabled,
+        required,
+        type,
+        pattern,
+        value,
+        placeholder,
+        min,
+        minLength,
+        onChange,
+    } = props;
 
     return (
         <label className={styles.customInput}>
@@ -24,6 +35,8 @@ const Input: React.FC<IProps> = (props) => {
                 type={type}
                 value={value}
                 pattern={pattern}
+                min={min}
+                minLength={minLength}
             />
         </label>
     );

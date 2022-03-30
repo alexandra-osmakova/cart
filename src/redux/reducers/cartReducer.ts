@@ -1,28 +1,5 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICartData } from "../../interface";
-import {
-    CART_DATA_LOADED,
-    CART_DATA_LOAD_ERROR,
-    CART_PRODUCT_ADD,
-    CART_PRODUCT_DECREASE,
-    CART_PRODUCT_DELETE,
-    CART_PRODUCT_INCREASE,
-} from "../action-types";
-import {
-    ICartDataLoadedAction,
-    ICartProductIncreaseAction,
-    ICartProductDecreaseAction,
-    ICartProductDeleteAction,
-    ICartProductAddAction,
-    ICartDataLoadErrorAction,
-} from "../interface";
-
-type CartActions =
-    | ICartDataLoadedAction
-    | ICartProductIncreaseAction
-    | ICartProductDecreaseAction
-    | ICartProductDeleteAction
-    | ICartProductAddAction
-    | ICartDataLoadErrorAction;
 
 interface ICartState {
     loaded: boolean;
@@ -36,32 +13,33 @@ const initialState: ICartState = {
     cartTotal: 0,
 };
 
-const cartReducer = (state = initialState, action: CartActions) => {
-    switch (action.type) {
-        case CART_DATA_LOADED: {
-            const { data } = action.payload;
+const cartSlice = createSlice({
+    name: "cartReducer",
+    initialState,
+    reducers: {
+        cartDataLoadedAction(
+            state: ICartState,
+            action: PayloadAction<ICartData[]>
+        ) {
+            const data = action.payload;
             let total = 0;
             const currentDataMap = (data as ICartData[]).reduce((acc, el) => {
                 acc.set(el.id, el);
                 total += el.price * el.quantity;
                 return acc;
             }, new Map() as Map<number, ICartData>);
-
-            return {
-                ...state,
-                cartData: currentDataMap,
-                loaded: true,
-                cartTotal: total,
-            };
-        }
-        case CART_DATA_LOAD_ERROR: {
-            return {
-                ...state,
-                loaded: true,
-            };
-        }
-        case CART_PRODUCT_INCREASE: {
-            const { product } = action.payload;
+            state.cartData = currentDataMap;
+            state.loaded = true;
+            state.cartTotal = total;
+        },
+        cartDataLoadErrorAction(state: ICartState) {
+            state.loaded = true;
+        },
+        cartProductIncreaseAction(
+            state: ICartState,
+            action: PayloadAction<ICartData>
+        ) {
+            const product = action.payload;
             const { cartData, cartTotal } = state;
 
             cartData.set(product.id, {
@@ -70,15 +48,15 @@ const cartReducer = (state = initialState, action: CartActions) => {
             });
             const currentTotal = cartTotal + product.price;
 
-            return {
-                ...state,
-                cartData: new Map(cartData.entries()),
-                loaded: true,
-                cartTotal: currentTotal,
-            };
-        }
-        case CART_PRODUCT_DECREASE: {
-            const { product } = action.payload;
+            state.cartData = new Map(cartData.entries());
+            state.loaded = true;
+            state.cartTotal = currentTotal;
+        },
+        cartProductDecreaseAction(
+            state: ICartState,
+            action: PayloadAction<ICartData>
+        ) {
+            const product = action.payload;
             const { cartData, cartTotal } = state;
 
             cartData.set(product.id, {
@@ -87,15 +65,15 @@ const cartReducer = (state = initialState, action: CartActions) => {
             });
             const currentTotal = cartTotal - product.price;
 
-            return {
-                ...state,
-                cartData: new Map(cartData.entries()),
-                loaded: true,
-                cartTotal: currentTotal,
-            };
-        }
-        case CART_PRODUCT_DELETE: {
-            const { productId } = action.payload;
+            state.cartData = new Map(cartData.entries());
+            state.loaded = true;
+            state.cartTotal = currentTotal;
+        },
+        cartProductDeleteAction(
+            state: ICartState,
+            action: PayloadAction<number>
+        ) {
+            const productId = action.payload;
             const { cartData, cartTotal } = state;
 
             const currentProduct = cartData.get(productId);
@@ -105,15 +83,15 @@ const cartReducer = (state = initialState, action: CartActions) => {
 
             cartData.delete(productId);
 
-            return {
-                ...state,
-                cartData: new Map(cartData.entries()),
-                loaded: true,
-                cartTotal: currentTotal,
-            };
-        }
-        case CART_PRODUCT_ADD: {
-            const { product } = action.payload;
+            state.cartData = new Map(cartData.entries());
+            state.loaded = true;
+            state.cartTotal = currentTotal;
+        },
+        cartProductAddAction(
+            state: ICartState,
+            action: PayloadAction<ICartData>
+        ) {
+            const product = action.payload;
             const { cartData, cartTotal } = state;
 
             const currentCartList: ICartData[] = Array.from(cartData.values());
@@ -125,16 +103,20 @@ const cartReducer = (state = initialState, action: CartActions) => {
                     return acc;
                 }, new Map());
 
-            return {
-                ...state,
-                cartData: currentCartMap,
-                loaded: true,
-                cartTotal: currentTotal,
-            };
-        }
-        default:
-            return state;
-    }
-};
+            state.cartData = currentCartMap;
+            state.loaded = true;
+            state.cartTotal = currentTotal;
+        },
+    },
+});
 
-export default cartReducer;
+export const {
+    cartDataLoadedAction,
+    cartDataLoadErrorAction,
+    cartProductIncreaseAction,
+    cartProductDecreaseAction,
+    cartProductDeleteAction,
+    cartProductAddAction,
+} = cartSlice.actions;
+
+export default cartSlice.reducer;

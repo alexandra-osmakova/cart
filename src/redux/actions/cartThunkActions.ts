@@ -6,66 +6,15 @@ import {
 } from "../../api";
 import { IBaseCartData, ICartData } from "../../interface";
 import {
-    CART_DATA_LOADED,
-    CART_DATA_LOAD_ERROR,
-    CART_PRODUCT_ADD,
-    CART_PRODUCT_DECREASE,
-    CART_PRODUCT_DELETE,
-    CART_PRODUCT_INCREASE,
-} from "../action-types";
-import {
-    ICartDataLoadedAction,
-    ICartDataLoadErrorAction,
-    ICartProductAddAction,
-    ICartProductDecreaseAction,
-    ICartProductDeleteAction,
-    ICartProductIncreaseAction,
-} from "../interface";
+    cartDataLoadedAction,
+    cartDataLoadErrorAction,
+    cartProductAddAction,
+    cartProductDecreaseAction,
+    cartProductDeleteAction,
+    cartProductIncreaseAction,
+    commonDialogToggleAction,
+} from "../reducers";
 import { AppThunk } from "../store";
-import { commonDialogToggleAction } from "./commonDialogAction";
-
-const cartDataLoadedAction = (value: ICartData[]): ICartDataLoadedAction => ({
-    type: CART_DATA_LOADED,
-    payload: {
-        data: value,
-    },
-});
-
-const cartDataLoadErrorAction = (): ICartDataLoadErrorAction => ({
-    type: CART_DATA_LOAD_ERROR,
-});
-
-const cartProductIncreaseAction = (
-    value: ICartData
-): ICartProductIncreaseAction => ({
-    type: CART_PRODUCT_INCREASE,
-    payload: {
-        product: value,
-    },
-});
-
-const cartProductDecreaseAction = (
-    value: ICartData
-): ICartProductDecreaseAction => ({
-    type: CART_PRODUCT_DECREASE,
-    payload: {
-        product: value,
-    },
-});
-
-const cartProductDeleteAction = (value: number): ICartProductDeleteAction => ({
-    type: CART_PRODUCT_DELETE,
-    payload: {
-        productId: value,
-    },
-});
-
-const cartProductAddAction = (value: ICartData): ICartProductAddAction => ({
-    type: CART_PRODUCT_ADD,
-    payload: {
-        product: value,
-    },
-});
 
 const cartProductQuantityUpdateAction =
     (isIncrease: boolean, value: ICartData): AppThunk =>
@@ -104,11 +53,11 @@ const cartProductFormSubmitAction =
             response = await addNewCartItem(data);
         } catch (error) {
             alert("request failed!");
-            dispatch(commonDialogToggleAction());
+            dispatch(commonDialogToggleAction({ dialogSettings: null }));
             return;
         }
         dispatch(cartProductAddAction({ ...data, id: response.id }));
-        dispatch(commonDialogToggleAction());
+        dispatch(commonDialogToggleAction({ dialogSettings: null }));
     };
 
 const cartProductLoadDataAction = (): AppThunk => async (dispatch) => {
