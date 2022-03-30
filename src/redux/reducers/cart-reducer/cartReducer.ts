@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICartData } from "../../interface";
+import { ICartData } from "../../../interface";
 
 interface ICartState {
     loaded: boolean;

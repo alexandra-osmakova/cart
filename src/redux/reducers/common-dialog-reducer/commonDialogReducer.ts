@@ -1,12 +1,12 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ButtonType, ICartAddDialog } from "../../interface";
-interface ICommonDialogState extends ICartAddDialog {
+import { ButtonType, ICartAddDialog } from "../../../interface";
+export interface ICommonDialogState extends ICartAddDialog {
     open: boolean;
     isValid: boolean;
 }
 
-const STATIC_INITIAL_STATE: ICartAddDialog = {
+export const STATIC_INITIAL_STATE: ICartAddDialog = {
     title: "",
     content: undefined,
     successBtnLabel: "",
@@ -31,10 +31,10 @@ const commonDialogSlice = createSlice({
             action: PayloadAction<{ dialogSettings: ICartAddDialog | null }>
         ) {
             const { dialogSettings } = action.payload;
-            const { open, isValid } = state;
+            const { open } = state;
             const currentSettings = dialogSettings || STATIC_INITIAL_STATE;
             state.open = !open;
-            state.isValid = dialogSettings?.isValid || isValid;
+            state.isValid = dialogSettings?.isValid || false;
             state.title = currentSettings.title;
             state.content = currentSettings.content;
             state.successBtnLabel = currentSettings.successBtnLabel;
